@@ -1,0 +1,2790 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>FORGE — Shivam Kumar Gym Planner</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root{
+    --bg:#080808;
+    --card:#111111;
+    --card2:#171717;
+    --border:#292929;
+    --text:#f5f5f5;
+    --muted:#8c8c8c;
+    --orange:#ff5a1f;
+    --orange-light:#ff8a61;
+    --green:#35d98b;
+    --blue:#4da3ff;
+    --red:#ff5757;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:Inter,sans-serif;
+}
+
+button{
+    font-family:inherit;
+}
+
+/* ================= HEADER ================= */
+
+header{
+    height:75px;
+    padding:0 5%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border-bottom:1px solid var(--border);
+    position:sticky;
+    top:0;
+    z-index:100;
+    background:rgba(8,8,8,.94);
+    backdrop-filter:blur(16px);
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:11px;
+}
+
+.logo-icon{
+    width:42px;
+    height:42px;
+    display:grid;
+    place-items:center;
+    background:var(--orange);
+    border-radius:10px;
+    font-size:21px;
+}
+
+.logo-text{
+    font-family:"Barlow Condensed",sans-serif;
+    font-size:28px;
+    font-weight:900;
+    letter-spacing:2px;
+}
+
+.logo-text span{
+    color:var(--orange);
+}
+
+.header-right{
+    display:flex;
+    gap:10px;
+    align-items:center;
+}
+
+.streak{
+    background:#19110e;
+    border:1px solid #40271d;
+    color:#ffad8c;
+    padding:9px 13px;
+    border-radius:9px;
+    font-size:12px;
+    font-weight:800;
+}
+
+.reset-small{
+    width:40px;
+    height:40px;
+    background:#141414;
+    border:1px solid var(--border);
+    color:#aaa;
+    border-radius:9px;
+    cursor:pointer;
+}
+
+/* ================= CONTAINER ================= */
+
+.container{
+    width:90%;
+    max-width:1250px;
+    margin:auto;
+    padding:32px 0 60px;
+}
+
+/* ================= HERO ================= */
+
+.hero{
+    min-height:310px;
+    border:1px solid var(--border);
+    border-radius:27px;
+    padding:48px;
+    display:flex;
+    align-items:center;
+    position:relative;
+    overflow:hidden;
+
+    background:
+        radial-gradient(circle at 90% 50%,rgba(255,90,31,.25),transparent 35%),
+        linear-gradient(110deg,#101010,#11100f,#160d09);
+}
+
+.hero:after{
+    content:"🏋️";
+    position:absolute;
+    right:55px;
+    bottom:-25px;
+    font-size:180px;
+    opacity:.08;
+}
+
+.hero-content{
+    position:relative;
+    z-index:2;
+}
+
+.eyebrow{
+    color:var(--orange);
+    font-size:12px;
+    font-weight:800;
+    letter-spacing:3px;
+    margin-bottom:13px;
+}
+
+.hero h1{
+    font-family:"Barlow Condensed",sans-serif;
+    font-size:76px;
+    line-height:.88;
+    text-transform:uppercase;
+}
+
+.hero h1 span{
+    color:var(--orange);
+}
+
+.hero p{
+    max-width:590px;
+    margin-top:20px;
+    color:#999;
+    font-size:14px;
+    line-height:1.8;
+}
+
+.hero-btn{
+    margin-top:25px;
+    border:0;
+    background:var(--orange);
+    color:#fff;
+    padding:14px 20px;
+    border-radius:9px;
+    font-weight:800;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.hero-btn:hover{
+    transform:translateY(-2px);
+}
+
+/* ================= STATS ================= */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
+    margin-top:16px;
+}
+
+.stat{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:21px;
+}
+
+.stat-label{
+    color:#707070;
+    font-size:10px;
+    letter-spacing:1.4px;
+    text-transform:uppercase;
+}
+
+.stat-value{
+    font-family:"Barlow Condensed",sans-serif;
+    font-size:39px;
+    margin-top:3px;
+}
+
+.orange{
+    color:var(--orange);
+}
+
+/* ================= WEEK ================= */
+
+.section-title{
+    margin:42px 0 17px;
+}
+
+.section-title h2{
+    font-family:"Barlow Condensed",sans-serif;
+    text-transform:uppercase;
+    font-size:34px;
+}
+
+.section-title p{
+    color:#666;
+    font-size:12px;
+    margin-top:3px;
+}
+
+.week{
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    gap:9px;
+}
+
+.day{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:16px 8px;
+    text-align:center;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.day:hover{
+    border-color:#555;
+}
+
+.day.active{
+    background:var(--orange);
+    border-color:var(--orange);
+}
+
+.day-name{
+    color:#777;
+    font-size:10px;
+    font-weight:800;
+}
+
+.day-number{
+    font-family:"Barlow Condensed",sans-serif;
+    font-size:30px;
+    margin-top:4px;
+}
+
+.day.active .day-name{
+    color:#fff;
+}
+
+/* ================= WORKOUT ================= */
+
+.workout-area{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) 310px;
+    gap:16px;
+    margin-top:18px;
+}
+
+.workout-card,
+.timer-card,
+.guide-card,
+.info-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:20px;
+}
+
+.workout-card{
+    padding:25px;
+}
+
+.workout-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding-bottom:20px;
+    border-bottom:1px solid var(--border);
+}
+
+.workout-header h2{
+    font-family:"Barlow Condensed",sans-serif;
+    font-size:35px;
+    text-transform:uppercase;
+}
+
+.workout-header p{
+    color:#666;
+    font-size:12px;
+    margin-top:4px;
+}
+
+.progress-box{
+    text-align:right;
+}
+
+.progress-number{
+    font-size:22px;
+    font-weight:800;
+}
+
+.progress-small{
+    color:#666;
+    font-size:9px;
+}
+
+.progress-line{
+    width:100px;
+    height:5px;
+    background:#292929;
+    margin-top:6px;
+    border-radius:10px;
+    overflow:hidden;
+}
+
+.progress-fill{
+    width:0;
+    height:100%;
+    background:var(--orange);
+    transition:.4s;
+}
+
+/* ================= EXERCISE ================= */
+
+.exercise{
+    padding:19px 4px;
+    display:grid;
+    grid-template-columns:48px 1fr auto;
+    align-items:center;
+    gap:14px;
+    border-bottom:1px solid #202020;
+}
+
+.exercise:last-child{
+    border-bottom:0;
+}
+
+.exercise-number{
+    font-family:"Barlow Condensed",sans-serif;
+    color:#4e4e4e;
+    font-size:25px;
+}
+
+.exercise-name{
+    font-weight:800;
+    font-size:14px;
+}
+
+.exercise-target{
+    color:#777;
+    font-size:10px;
+    margin-top:5px;
+}
+
+.exercise-meta{
+    display:flex;
+    gap:13px;
+    color:#999;
+    font-size:10px;
+    margin-top:8px;
+}
+
+.view-btn{
+    background:#191919;
+    color:#ddd;
+    border:1px solid #333;
+    padding:9px 12px;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:11px;
+}
+
+.view-btn:hover{
+    border-color:var(--orange);
+    color:var(--orange);
+}
+
+.check-btn{
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    border:1px solid #333;
+    background:#181818;
+    color:transparent;
+    cursor:pointer;
+    font-size:16px;
+}
+
+.check-btn.done{
+    background:var(--green);
+    border-color:var(--green);
+    color:#06160d;
+}
+
+.exercise.done .exercise-name{
+    text-decoration:line-through;
+    color:#777;
+}
+
+/* ================= TIMER ================= */
+
+.timer-card{
+    padding:24px;
+    height:max-content;
+}
+
+.timer-card h3{
+    font-family:"Barlow Condensed",sans-serif;
+    font-size:28px;
+    text-transform:uppercase;
+}
+
+.timer-circle{
+    width:185px;
+    height:185px;
+    border:8px solid #242424;
+    border-top-color:var(--orange);
+    border-radius:50%;
+    margin:24px auto;
+    display:grid;
+    place-items:center;
+}
+
+.timer-time{
+    font-family:"Barlow Condensed",sans-serif;
+    font-size:48px;
+}
+
+.timer-buttons{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:7px;
+}
+
+.timer-buttons button{
+    border:1px solid #333;
+    background:#181818;
+    color:#ddd;
+    padding:10px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.timer-buttons button:first-child{
+    background:var(--orange);
+    border-color:var(--orange);
+    color:white;
+}
+
+.timer-buttons button:last-child{
+    grid-column:span 2;
+}
+
+.quick-times{
+    display:flex;
+    gap:6px;
+    margin-top:15px;
+}
+
+.quick-times button{
+    flex:1;
+    background:#181818;
+    border:1px solid #303030;
+    color:#aaa;
+    padding:8px 3px;
+    border-radius:7px;
+    cursor:pointer;
+    font-size:10px;
+}
+
+.timer-tip{
+    margin-top:20px;
+    padding-top:17px;
+    border-top:1px solid var(--border);
+    color:#777;
+    font-size:11px;
+    line-height:1.7;
+}
+
+/* ================= GUIDE ================= */
+
+.guide-card{
+    margin-top:16px;
+    padding:26px;
+    scroll-margin-top:100px;
+}
+
+.guide-top{
+    display:flex;
+    justify-content:space-between;
+    gap:15px;
+    align-items:flex-start;
+}
+
+.guide-label{
+    color:var(--orange);
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:2px;
+}
+
+.guide-card h2{
+    font-family:"Barlow Condensed",sans-serif;
+    text-transform:uppercase;
+    font-size:38px;
+    margin-top:5px;
+}
+
+.guide-target{
+    background:#1d130e;
+    border:1px solid #43271c;
+    color:#ff9875;
+    padding:9px 12px;
+    border-radius:9px;
+    font-size:11px;
+    font-weight:700;
+}
+
+.guide-description{
+    color:#aaa;
+    font-size:13px;
+    line-height:1.8;
+    margin:15px 0 22px;
+    max-width:850px;
+}
+
+.guide-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+}
+
+.guide-section{
+    background:var(--card2);
+    border:1px solid #242424;
+    border-radius:13px;
+    padding:18px;
+}
+
+.guide-section h3{
+    font-size:12px;
+    margin-bottom:11px;
+}
+
+.guide-section ul{
+    list-style:none;
+}
+
+.guide-section li{
+    color:#8d8d8d;
+    font-size:11px;
+    line-height:1.7;
+    margin-bottom:8px;
+}
+
+.guide-section li:before{
+    content:"→ ";
+    color:var(--orange);
+}
+
+.warning li:before{
+    color:var(--red);
+}
+
+.tip li:before{
+    color:var(--green);
+}
+
+/* ================= BOTTOM ================= */
+
+.bottom{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+    margin-top:16px;
+}
+
+.info-card{
+    padding:24px;
+}
+
+.info-card h3{
+    font-family:"Barlow Condensed",sans-serif;
+    text-transform:uppercase;
+    font-size:28px;
+}
+
+.info-card p{
+    color:#777;
+    font-size:12px;
+    line-height:1.8;
+    margin-top:7px;
+}
+
+.water{
+    display:flex;
+    gap:7px;
+    margin-top:17px;
+}
+
+.glass{
+    width:28px;
+    height:38px;
+    background:#161616;
+    border:1px solid #333;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+.glass.full{
+    background:#238bd9;
+    border-color:#238bd9;
+}
+
+/* ================= MODAL ================= */
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.78);
+    z-index:500;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+    width:100%;
+    max-width:600px;
+    background:#111;
+    border:1px solid #333;
+    border-radius:20px;
+    padding:28px;
+    max-height:90vh;
+    overflow:auto;
+}
+
+.modal-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.modal-header h2{
+    font-family:"Barlow Condensed",sans-serif;
+    font-size:34px;
+    text-transform:uppercase;
+}
+
+.close{
+    width:35px;
+    height:35px;
+    background:#1b1b1b;
+    color:#aaa;
+    border:1px solid #333;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.modal-text{
+    margin-top:20px;
+}
+
+.modal-text h3{
+    color:var(--orange);
+    font-size:13px;
+    margin:17px 0 7px;
+}
+
+.modal-text p,
+.modal-text li{
+    color:#999;
+    font-size:12px;
+    line-height:1.8;
+}
+
+.modal-text ul{
+    padding-left:17px;
+}
+
+/* ================= FOOTER ================= */
+
+footer{
+    text-align:center;
+    padding:30px;
+    border-top:1px solid #181818;
+    color:#555;
+    font-size:11px;
+}
+
+footer span{
+    color:var(--orange);
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:900px){
+
+    .hero h1{
+        font-size:60px;
+    }
+
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .workout-area{
+        grid-template-columns:1fr;
+    }
+
+    .guide-grid{
+        grid-template-columns:1fr;
+    }
+
+    .bottom{
+        grid-template-columns:1fr;
+    }
+
+    .week{
+        overflow-x:auto;
+        grid-template-columns:repeat(7,90px);
+    }
+}
+
+@media(max-width:600px){
+
+    header{
+        padding:0 4%;
+    }
+
+    .streak{
+        display:none;
+    }
+
+    .container{
+        width:94%;
+        padding-top:20px;
+    }
+
+    .hero{
+        padding:30px 25px;
+        min-height:300px;
+    }
+
+    .hero h1{
+        font-size:49px;
+    }
+
+    .hero p{
+        font-size:12px;
+    }
+
+    .stats{
+        gap:8px;
+    }
+
+    .stat{
+        padding:16px;
+    }
+
+    .stat-value{
+        font-size:31px;
+    }
+
+    .workout-card{
+        padding:18px;
+    }
+
+    .workout-header h2{
+        font-size:28px;
+    }
+
+    .progress-box{
+        display:none;
+    }
+
+    .exercise{
+        grid-template-columns:32px 1fr auto;
+        gap:8px;
+    }
+
+    .exercise-meta{
+        flex-wrap:wrap;
+        gap:6px;
+    }
+
+    .view-btn{
+        padding:8px;
+        font-size:10px;
+    }
+
+    .guide-card{
+        padding:20px;
+    }
+
+    .guide-top{
+        flex-direction:column;
+    }
+}
+</style>
+</head>
+
+
+<body>
+
+<header>
+
+    <div class="logo">
+        <div class="logo-icon">⚡</div>
+
+        <div class="logo-text">
+            FORGE<span>.</span>
+        </div>
+    </div>
+
+    <div class="header-right">
+
+        <div class="streak">
+            🔥 <span id="streak">0</span> DAY STREAK
+        </div>
+
+        <button class="reset-small" onclick="resetProgress()">
+            ↻
+        </button>
+
+    </div>
+
+</header>
+
+
+<main class="container">
+
+<!-- ================= HERO ================= -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <div class="eyebrow">
+            SHIVAM GYM BUDDY
+        </div>
+
+        <h1>
+            TRAIN<br>
+            <span>SMARTER.</span>
+        </h1>
+
+        <p>
+            Welcome, Shivam. Follow your workout, learn the correct
+            exercise form and stay consistent. Your progress is built
+            one session at a time.
+        </p>
+
+        <button class="hero-btn" onclick="goWorkout()">
+            START WORKOUT →
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ================= STATS ================= -->
+
+<section class="stats">
+
+    <div class="stat">
+        <div class="stat-label">Exercises Done</div>
+        <div class="stat-value" id="completedCount">0</div>
+    </div>
+
+    <div class="stat">
+        <div class="stat-label">Overall Progress</div>
+        <div class="stat-value orange" id="overallProgress">0%</div>
+    </div>
+
+    <div class="stat">
+        <div class="stat-label">Training Days</div>
+        <div class="stat-value">6</div>
+    </div>
+
+    <div class="stat">
+        <div class="stat-label">Water</div>
+        <div class="stat-value">
+            <span id="waterCount">0</span>/8
+        </div>
+    </div>
+
+</section>
+
+
+<!-- ================= WEEK ================= -->
+
+<div class="section-title">
+
+    <h2>Weekly Split</h2>
+
+    <p>
+        Choose a day to see your workout
+    </p>
+
+</div>
+
+
+<div class="week">
+
+    <div class="day active" onclick="selectDay('Monday',this)">
+        <div class="day-name">MON</div>
+        <div class="day-number">01</div>
+    </div>
+
+    <div class="day" onclick="selectDay('Tuesday',this)">
+        <div class="day-name">TUE</div>
+        <div class="day-number">02</div>
+    </div>
+
+    <div class="day" onclick="selectDay('Wednesday',this)">
+        <div class="day-name">WED</div>
+        <div class="day-number">03</div>
+    </div>
+
+    <div class="day" onclick="selectDay('Thursday',this)">
+        <div class="day-name">THU</div>
+        <div class="day-number">04</div>
+    </div>
+
+    <div class="day" onclick="selectDay('Friday',this)">
+        <div class="day-name">FRI</div>
+        <div class="day-number">05</div>
+    </div>
+
+    <div class="day" onclick="selectDay('Saturday',this)">
+        <div class="day-name">SAT</div>
+        <div class="day-number">06</div>
+    </div>
+
+    <div class="day" onclick="selectDay('Sunday',this)">
+        <div class="day-name">SUN</div>
+        <div class="day-number">07</div>
+    </div>
+
+</div>
+
+
+<!-- ================= WORKOUT ================= -->
+
+<div class="workout-area" id="workoutSection">
+
+    <section class="workout-card">
+
+        <div class="workout-header">
+
+            <div>
+                <h2 id="workoutTitle">
+                    Chest + Triceps
+                </h2>
+
+                <p id="workoutSubtitle">
+                    Monday • 5 exercises
+                </p>
+            </div>
+
+            <div class="progress-box">
+
+                <div class="progress-number">
+                    <span id="dayDone">0</span>/5
+                </div>
+
+                <div class="progress-small">
+                    COMPLETED
+                </div>
+
+                <div class="progress-line">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div id="exerciseList"></div>
+
+    </section>
+
+
+    <!-- ================= TIMER ================= -->
+
+    <aside class="timer-card">
+
+        <h3>Rest Timer</h3>
+
+        <div class="timer-circle">
+
+            <div class="timer-time" id="timer">
+                02:00
+            </div>
+
+        </div>
+
+        <div class="timer-buttons">
+
+            <button onclick="startTimer()">
+                START
+            </button>
+
+            <button onclick="pauseTimer()">
+                PAUSE
+            </button>
+
+            <button onclick="resetTimer()">
+                RESET
+            </button>
+
+        </div>
+
+        <div class="quick-times">
+
+            <button onclick="setTimer(30)">30s</button>
+            <button onclick="setTimer(60)">60s</button>
+            <button onclick="setTimer(90)">90s</button>
+            <button onclick="setTimer(120)">2m</button>
+
+        </div>
+
+        <div class="timer-tip">
+            💡 Use 60–90 seconds for most exercises.
+            Heavy compound movements may need longer recovery.
+        </div>
+
+    </aside>
+
+</div>
+
+
+<!-- ================= EXERCISE GUIDE ================= -->
+
+<section class="guide-card" id="guide">
+
+    <div class="guide-top">
+
+        <div>
+
+            <div class="guide-label">
+                EXERCISE GUIDE
+            </div>
+
+            <h2 id="guideTitle">
+                Barbell Bench Press
+            </h2>
+
+        </div>
+
+        <div class="guide-target" id="guideTarget">
+            CHEST
+        </div>
+
+    </div>
+
+
+    <p class="guide-description" id="guideDescription">
+        A compound pushing movement that primarily trains
+        the chest while also involving the triceps and front
+        shoulders.
+    </p>
+
+
+    <div class="guide-grid">
+
+        <div class="guide-section">
+
+            <h3>🏋️ HOW TO DO IT</h3>
+
+            <ul id="howTo"></ul>
+
+        </div>
+
+
+        <div class="guide-section tip">
+
+            <h3>💡 FORM TIPS</h3>
+
+            <ul id="formTips"></ul>
+
+        </div>
+
+
+        <div class="guide-section warning">
+
+            <h3>⚠️ COMMON MISTAKES</h3>
+
+            <ul id="mistakes"></ul>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= BOTTOM ================= -->
+
+<div class="bottom">
+
+    <div class="info-card">
+
+        <h3>💧 Hydration</h3>
+
+        <p>
+            Tap the glasses as you drink water during the day.
+        </p>
+
+        <div class="water" id="water"></div>
+
+    </div>
+
+
+    <div class="info-card">
+
+        <h3>🧠 Remember</h3>
+
+        <p>
+            Good form comes before heavier weight. Start with
+            a manageable load, control the movement and increase
+            weight gradually. If you are unsure about an exercise,
+            ask a qualified trainer to check your technique.
+        </p>
+
+    </div>
+
+</div>
+
+</main>
+
+
+<footer>
+    FORGE. — Built for <span>Shivam Kumar</span> 💪
+</footer>
+
+
+<!-- ================= MODAL ================= -->
+
+<div class="modal" id="modal">
+
+    <div class="modal-box">
+
+        <div class="modal-header">
+
+            <h2 id="modalTitle">
+                Exercise
+            </h2>
+
+            <button class="close" onclick="closeModal()">
+                ×
+            </button>
+
+        </div>
+
+        <div class="modal-text">
+
+            <h3>🎯 TARGET</h3>
+            <p id="modalTarget"></p>
+
+            <h3>🏋️ HOW TO PERFORM</h3>
+            <ul id="modalHow"></ul>
+
+            <h3>⚠️ SAFETY</h3>
+            <p id="modalSafety"></p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   WORKOUT DATABASE
+===================================================== */
+
+const workouts = {
+
+Monday:{
+    title:"Chest + Triceps",
+    exercises:[
+
+        {
+            name:"Barbell Bench Press",
+            target:"CHEST + TRICEPS",
+            sets:"3 sets",
+            reps:"8–10 reps",
+            rest:"90 sec",
+            description:"A compound pressing movement primarily targeting the chest with assistance from the triceps and front shoulders.",
+            how:[
+                "Lie flat on the bench with your eyes under the bar.",
+                "Place your hands slightly wider than shoulder width.",
+                "Keep your feet firmly planted on the floor.",
+                "Lower the bar under control toward the middle of your chest.",
+                "Press the bar upward while keeping your wrists stable."
+            ],
+            tips:[
+                "Keep your shoulder blades pulled back.",
+                "Keep your feet planted.",
+                "Control the bar instead of dropping it quickly.",
+                "Use a spotter when lifting heavy."
+            ],
+            mistakes:[
+                "Bouncing the bar off your chest.",
+                "Lifting your hips off the bench.",
+                "Using excessive weight.",
+                "Uncontrolled lowering."
+            ],
+            safety:"Use a manageable weight and ask a trainer or spotter for help if you are learning the movement."
+        },
+
+        {
+            name:"Incline Dumbbell Press",
+            target:"UPPER CHEST",
+            sets:"3 sets",
+            reps:"10–12 reps",
+            rest:"75 sec",
+            description:"An incline pressing exercise that emphasizes the upper portion of the chest.",
+            how:[
+                "Set the bench to a moderate incline.",
+                "Sit with dumbbells resting on your thighs.",
+                "Bring the dumbbells to chest level.",
+                "Press them upward without aggressively locking your elbows.",
+                "Lower slowly until you feel a comfortable chest stretch."
+            ],
+            tips:[
+                "Keep shoulder blades stable.",
+                "Move both dumbbells under control.",
+                "Keep wrists neutral.",
+                "Use a weight you can control."
+            ],
+            mistakes:[
+                "Using excessive incline.",
+                "Dropping the dumbbells quickly.",
+                "Flaring elbows excessively.",
+                "Using momentum."
+            ],
+            safety:"Start light and prioritize controlled movement."
+        },
+
+        {
+            name:"Chest Fly",
+            target:"CHEST",
+            sets:"3 sets",
+            reps:"12–15 reps",
+            rest:"60 sec",
+            description:"An isolation movement designed to train the chest through a controlled horizontal-adduction movement.",
+            how:[
+                "Set the machine or cables correctly.",
+                "Keep your chest lifted and shoulders controlled.",
+                "Start with arms comfortably open.",
+                "Bring your hands together in front of your body.",
+                "Return slowly to the starting position."
+            ],
+            tips:[
+                "Keep a slight bend in the elbows.",
+                "Focus on bringing the arms together.",
+                "Use a controlled range.",
+                "Do not chase heavy weight."
+            ],
+            mistakes:[
+                "Overstretching the shoulder.",
+                "Using momentum.",
+                "Bending the elbows excessively.",
+                "Using too much weight."
+            ],
+            safety:"Stop if you feel sharp shoulder pain."
+        },
+
+        {
+            name:"Rope Triceps Pushdown",
+            target:"TRICEPS",
+            sets:"3 sets",
+            reps:"10–12 reps",
+            rest:"60 sec",
+            description:"A cable isolation exercise for the triceps.",
+            how:[
+                "Stand facing the cable machine.",
+                "Hold the rope with both hands.",
+                "Keep your elbows close to your sides.",
+                "Push the rope downward until your arms are extended.",
+                "Return slowly to the starting position."
+            ],
+            tips:[
+                "Keep elbows relatively stationary.",
+                "Move through the elbow joint.",
+                "Control the return.",
+                "Keep your torso stable."
+            ],
+            mistakes:[
+                "Swinging the body.",
+                "Moving the elbows excessively.",
+                "Using momentum.",
+                "Too much weight."
+            ],
+            safety:"Use a weight that allows clean repetitions."
+        },
+
+        {
+            name:"Overhead Triceps Extension",
+            target:"TRICEPS",
+            sets:"3 sets",
+            reps:"10–12 reps",
+            rest:"60 sec",
+            description:"An overhead triceps movement that trains the elbow extensors through a longer range.",
+            how:[
+                "Hold a dumbbell or cable handle securely.",
+                "Position the weight overhead.",
+                "Keep your upper arms relatively stable.",
+                "Lower the weight behind your head under control.",
+                "Extend the elbows to return."
+            ],
+            tips:[
+                "Keep your core stable.",
+                "Move mainly at the elbows.",
+                "Use controlled repetitions.",
+                "Start with a light load."
+            ],
+            mistakes:[
+                "Arching the lower back.",
+                "Using excessive weight.",
+                "Moving the upper arms excessively.",
+                "Dropping the weight quickly."
+            ],
+            safety:"Use a manageable load and stop if you feel elbow or shoulder pain."
+        }
+
+    ]
+},
+
+
+Tuesday:{
+    title:"Back + Biceps",
+    exercises:[
+
+        {
+            name:"Lat Pulldown",
+            target:"LATS + UPPER BACK",
+            sets:"3 sets",
+            reps:"8–12 reps",
+            rest:"90 sec",
+            description:"A vertical pulling exercise that primarily trains the latissimus dorsi and upper back.",
+            how:[
+                "Sit firmly at the pulldown station.",
+                "Grip the bar comfortably wider than shoulder width.",
+                "Pull the bar toward your upper chest.",
+                "Keep your torso controlled.",
+                "Slowly return the bar upward."
+            ],
+            tips:[
+                "Think about pulling with your elbows.",
+                "Keep your chest comfortably lifted.",
+                "Control the eccentric phase.",
+                "Avoid excessive swinging."
+            ],
+            mistakes:[
+                "Pulling the bar behind the neck.",
+                "Using momentum.",
+                "Leaning excessively backward.",
+                "Releasing the weight quickly."
+            ],
+            safety:"Choose a weight that allows you to control the full movement."
+        },
+
+        {
+            name:"Seated Cable Row",
+            target:"MID BACK",
+            sets:"3 sets",
+            reps:"10–12 reps",
+            rest:"75 sec",
+            description:"A horizontal pulling movement targeting the middle back and contributing muscles.",
+            how:[
+                "Sit upright with feet supported.",
+                "Hold the cable attachment.",
+                "Pull toward your torso.",
+                "Keep your shoulders controlled.",
+                "Return the handle slowly."
+            ],
+            tips:[
+                "Keep your spine neutral.",
+                "Avoid jerking the handle.",
+                "Squeeze the back gently.",
+                "Control every repetition."
+            ],
+            mistakes:[
+                "Rounding the back.",
+                "Swinging backward.",
+                "Using excessive weight.",
+                "Shrugging excessively."
+            ],
+            safety:"Keep the movement controlled and avoid painful ranges."
+        },
+
+        {
+            name:"One Arm Dumbbell Row",
+            target:"LATS + BACK",
+            sets:"3 sets",
+            reps:"10–12 reps",
+            rest:"75 sec",
+            description:"A unilateral rowing movement for the back.",
+            how:[
+                "Support one hand and knee on a stable bench.",
+                "Keep your back neutral.",
+                "Hold the dumbbell with the free hand.",
+                "Pull the dumbbell toward your hip.",
+                "Lower it slowly."
+            ],
+            tips:[
+                "Keep your torso stable.",
+                "Pull toward the hip rather than shrugging.",
+                "Use controlled motion.",
+                "Keep your neck neutral."
+            ],
+            mistakes:[
+                "Rotating the torso.",
+                "Using momentum.",
+                "Shrugging the shoulder.",
+                "Rounding the spine."
+            ],
+            safety:"Use a stable bench and manageable weight."
+        },
+
+        {
+            name:"Barbell Curl",
+            target:"BICEPS",
+            sets:"3 sets",
+            reps:"10–12 reps",
+            rest:"60 sec",
+            description:"A classic elbow-flexion movement for the biceps.",
+            how:[
+                "Stand tall holding the bar.",
+                "Keep elbows close to your sides.",
+                "Curl the bar upward.",
+                "Pause briefly near the top.",
+                "Lower under control."
+            ],
+            tips:[
+                "Keep your torso stable.",
+                "Move mainly at the elbows.",
+                "Use controlled repetitions.",
+                "Do not rush the lowering phase."
+            ],
+            mistakes:[
+                "Swinging the torso.",
+                "Using excessive weight.",
+                "Moving the elbows forward.",
+                "Dropping the bar."
+            ],
+            safety:"Avoid heavy swinging and keep the movement controlled."
+        },
+
+        {
+            name:"Hammer Curl",
+            target:"BICEPS + FOREARMS",
+            sets:"3 sets",
+            reps:"10–12 reps",
+            rest:"60 sec",
+            description:"A neutral-grip curl that trains the biceps and forearm muscles.",
+            how:[
+                "Hold dumbbells with palms facing each other.",
+                "Keep elbows close to the body.",
+                "Curl the dumbbells upward.",
+                "Pause briefly.",
+                "Lower slowly."
+            ],
+            tips:[
+                "Keep wrists neutral.",
+                "Avoid swinging.",
+                "Control the lowering phase.",
+                "Use a comfortable load."
+            ],
+            mistakes:[
+                "Using momentum.",
+                "Moving elbows excessively.",
+                "Bending wrists.",
+                "Using excessive weight."
+            ],
+            safety:"Keep the wrists comfortable throughout the movement."
+        }
+
+    ]
+},
+
+
+Wednesday:{
+    title:"Leg Day",
+    exercises:[
+
+        {
+            name:"Barbell Squat",
+            target:"QUADS + GLUTES",
+            sets:"3 sets",
+            reps:"8–10 reps",
+            rest:"120 sec",
+            description:"A compound lower-body exercise involving the quadriceps, glutes and other stabilizing muscles.",
+            how:[
+                "Position the bar securely across your upper back.",
+                "Brace your core before each repetition.",
+                "Bend your knees and hips to descend.",
+                "Keep your feet stable and knees tracking comfortably.",
+                "Drive through the floor to stand."
+            ],
+            tips:[
+                "Start with an empty bar if learning.",
+                "Keep the spine controlled.",
+                "Use a comfortable depth.",
+                "Increase load gradually."
+            ],
+            mistakes:[
+                "Using more weight than you can control.",
+                "Collapsing the knees inward.",
+                "Losing balance.",
+                "Rushing repetitions."
+            ],
+            safety:"Use a rack and spotter when appropriate. Learn the movement with a qualified trainer."
+        },
+
+        {
+            name:"Leg Press",
+            target:"QUADS + GLUTES",
+            sets:"3 sets",
+            reps:"10–12 reps",
+            rest:"90 sec",
+            description:"A machine-based compound movement for the lower body.",
+            how:[
+                "Set the seat and foot position comfortably.",
+                "Place feet firmly on the platform.",
+                "Lower the platform with control.",
+                "Keep your hips and back supported.",
+                "Press the platform away without forcing your knees into a locked position."
+            ],
+            tips:[
+                "Keep your back against the pad.",
+                "Use a comfortable range.",
+                "Control both directions.",
+                "Increase weight gradually."
+            ],
+            mistakes:[
+                "Lowering too far for your mobility.",
+                "Lifting the hips off the pad.",
+                "Bouncing the sled.",
+                "Using excessive weight."
+            ],
+            safety:"Never sacrifice control for heavier weight."
+        },
+
+        {
+            name:"Leg Curl",
+            target:"HAMSTRINGS",
+            sets:"3 sets",
+            reps:"10–12 reps",
+            rest:"75 sec",
+            description:"An isolation exercise for the hamstrings.",
+            how:[
+                "Adjust the machine to fit your body.",
+                "Position the pad correctly against your legs.",
+                "Curl the weight through the available range.",
+                "Pause briefly.",
+                "Return slowly."
+            ],
+            tips:[
+                "Keep your hips stable.",
+                "Use controlled repetitions.",
+                "Avoid jerking.",
+                "Use moderate resistance."
+            ],
+            mistakes:[
+                "Lifting the hips.",
+                "Using momentum.",
+                "Too much weight.",
+                "Shortening the range unnecessarily."
+            ],
+            safety:"Adjust the machine properly before starting."
+        },
+
+        {
+            name:"Leg Extension",
+            target:"QUADRICEPS",
+            sets:"3 sets",
+            reps:"12–15 reps",
+            rest:"60 sec",
+            description:"A machine isolation exercise focused on the quadriceps.",
+            how:[
+                "Adjust the machine to your leg length.",
+                "Sit with your back against the pad.",
+                "Extend the knees smoothly.",
+                "Pause briefly.",
+                "Lower the weight under control."
+            ],
+            tips:[
+                "Keep hips against the seat.",
+                "Use controlled motion.",
+                "Avoid slamming the weight.",
+                "Use moderate resistance."
+            ],
+            mistakes:[
+                "Using excessive weight.",
+                "Jerking the machine.",
+                "Lifting hips from the seat.",
+                "Rushing repetitions."
+            ],
+            safety:"Use the machine according to its adjustment instructions."
+        },
+
+        {
+            name:"Standing Calf Raise",
+            target:"CALVES",
+            sets:"4 sets",
+            reps:"12–15 reps",
+            rest:"60 sec",
+            description:"A calf-focused movement performed through ankle plantarflexion.",
+            how:[
+                "Stand securely with feet comfortable.",
+                "Rise onto the balls of your feet.",
+                "Pause briefly at the top.",
+                "Lower your heels under control.",
+                "Repeat smoothly."
+            ],
+            tips:[
+                "Use a comfortable range.",
+                "Avoid bouncing.",
+                "Control the lowering phase.",
+                "Keep your feet stable."
+            ],
+            mistakes:[
+                "Bouncing through repetitions.",
+                "Using excessive load.",
+                "Moving too quickly.",
+                "Losing balance."
+            ],
+            safety:"Use support if needed."
+        }
+
+    ]
+},
+
+
+Thursday:{
+    title:"Shoulders + Abs",
+    exercises:[
+
+        {
+            name:"Shoulder Press",
+            target:"SHOULDERS",
+            sets:"3 sets",
+            reps:"8–10 reps",
+            rest:"90 sec",
+            description:"A pressing movement that primarily trains the shoulders.",
+            how:[
+                "Sit or stand in a stable position.",
+                "Hold the weights around shoulder level.",
+                "Brace your core.",
+                "Press upward smoothly.",
+                "Lower the weights under control."
+            ],
+            tips:[
+                "Keep wrists stable.",
+                "Avoid excessive back arching.",
+                "Use controlled repetitions.",
+                "Start with manageable weight."
+            ],
+            mistakes:[
+                "Overarching the lower back.",
+                "Using momentum.",
+                "Excessive weight.",
+                "Poor wrist position."
+            ],
+            safety:"Use a comfortable range and stop if you experience sharp pain."
+        },
+
+        {
+            name:"Lateral Raise",
+            target:"SIDE DELTS",
+            sets:"3 sets",
+            reps:"12–15 reps",
+            rest:"60 sec",
+            description:"An isolation movement emphasizing the lateral shoulder muscles.",
+            how:[
+                "Stand with dumbbells beside your body.",
+                "Keep a slight bend in your elbows.",
+                "Raise your arms outward.",
+                "Stop around a comfortable shoulder-height range.",
+                "Lower slowly."
+            ],
+            tips:[
+                "Use light to moderate weight.",
+                "Avoid swinging.",
+                "Control both directions.",
+                "Keep shoulders relaxed."
+            ],
+            mistakes:[
+                "Using excessive weight.",
+                "Swinging the body.",
+                "Shrugging excessively.",
+                "Forcing a painful range."
+            ],
+            safety:"Light weights are usually enough for controlled repetitions."
+        },
+
+        {
+            name:"Rear Delt Fly",
+            target:"REAR DELTS",
+            sets:"3 sets",
+            reps:"12–15 reps",
+            rest:"60 sec",
+            description:"An upper-back and rear-shoulder focused movement.",
+            how:[
+                "Hinge or sit in a stable position.",
+                "Hold light dumbbells.",
+                "Open your arms outward.",
+                "Squeeze the rear shoulders gently.",
+                "Lower slowly."
+            ],
+            tips:[
+                "Use light weight.",
+                "Keep neck relaxed.",
+                "Control the movement.",
+                "Avoid swinging."
+            ],
+            mistakes:[
+                "Using too much weight.",
+                "Shrugging.",
+                "Jerking the arms.",
+                "Rounding excessively."
+            ],
+            safety:"Keep the movement pain-free."
+        },
+
+        {
+            name:"Cable Crunch",
+            target:"ABS",
+            sets:"3 sets",
+            reps:"12–15 reps",
+            rest:"60 sec",
+            description:"A weighted abdominal flexion exercise.",
+            how:[
+                "Kneel facing the cable machine.",
+                "Hold the rope near your head.",
+                "Brace your abdomen.",
+                "Curl your torso downward.",
+                "Return slowly."
+            ],
+            tips:[
+                "Focus on abdominal movement.",
+                "Keep hips relatively stable.",
+                "Control the return.",
+                "Use moderate resistance."
+            ],
+            mistakes:[
+                "Pulling mainly with the arms.",
+                "Using momentum.",
+                "Excessive weight.",
+                "Rushing."
+            ],
+            safety:"Keep the movement controlled."
+        },
+
+        {
+            name:"Plank",
+            target:"CORE",
+            sets:"3 sets",
+            reps:"30–60 sec",
+            rest:"60 sec",
+            description:"An isometric core exercise that trains trunk stability.",
+            how:[
+                "Place your forearms on the floor.",
+                "Extend your legs behind you.",
+                "Keep your body in a straight line.",
+                "Brace your abdomen and glutes.",
+                "Hold while breathing normally."
+            ],
+            tips:[
+                "Keep hips neither too high nor too low.",
+                "Breathe normally.",
+                "Brace your core.",
+                "Stop when form breaks."
+            ],
+            mistakes:[
+                "Sagging hips.",
+                "Raising hips too high.",
+                "Holding your breath.",
+                "Trying to hold too long with poor form."
+            ],
+            safety:"Quality of position matters more than duration."
+        }
+
+    ]
+},
+
+
+Friday:{
+    title:"Chest + Back",
+    exercises:[
+
+        {
+            name:"Incline Bench Press",
+            target:"UPPER CHEST",
+            sets:"3 sets",
+            reps:"8–10 reps",
+            rest:"90 sec",
+            description:"A compound pressing movement emphasizing the upper chest.",
+            how:[
+                "Set the bench to a moderate incline.",
+                "Position yourself securely.",
+                "Lower the bar toward the upper chest.",
+                "Press upward smoothly.",
+                "Keep your feet planted."
+            ],
+            tips:[
+                "Control the bar.",
+                "Keep shoulder blades stable.",
+                "Use a manageable load.",
+                "Use a spotter for heavy sets."
+            ],
+            mistakes:[
+                "Excessive bench angle.",
+                "Bouncing the bar.",
+                "Using too much weight.",
+                "Losing body position."
+            ],
+            safety:"Use a spotter when appropriate."
+        },
+
+        {
+            name:"Dumbbell Bench Press",
+            target:"CHEST",
+            sets:"3 sets",
+            reps:"10–12 reps",
+            rest:"75 sec",
+            description:"A dumbbell pressing movement for the chest.",
+            how:[
+                "Lie on the bench with dumbbells at chest level.",
+                "Plant your feet.",
+                "Press both dumbbells upward.",
+                "Lower them slowly.",
+                "Repeat with control."
+            ],
+            tips:[
+                "Keep wrists neutral.",
+                "Control the dumbbells.",
+                "Avoid crashing them together.",
+                "Use manageable weight."
+            ],
+            mistakes:[
+                "Using momentum.",
+                "Dropping the weights.",
+                "Overarching the back.",
+                "Excessive load."
+            ],
+            safety:"Use a safe setup when getting into and out of position."
+        },
+
+        {
+            name:"Pull Ups",
+            target:"LATS + UPPER BACK",
+            sets:"3 sets",
+            reps:"6–10 reps",
+            rest:"90 sec",
+            description:"A bodyweight vertical pulling exercise.",
+            how:[
+                "Grip the bar securely.",
+                "Start from a controlled hanging position.",
+                "Pull your body upward.",
+                "Bring your upper body toward the bar.",
+                "Lower under control."
+            ],
+            tips:[
+                "Avoid swinging.",
+                "Keep shoulders controlled.",
+                "Use assistance if needed.",
+                "Focus on smooth repetitions."
+            ],
+            mistakes:[
+                "Kipping without purpose.",
+                "Half repetitions.",
+                "Swinging excessively.",
+                "Losing grip."
+            ],
+            safety:"Use an assisted machine or resistance band if you cannot perform controlled repetitions yet."
+        },
+
+        {
+            name:"Cable Row",
+            target:"MID BACK",
+            sets:"3 sets",
+            reps:"10–12 reps",
+            rest:"75 sec",
+            description:"A horizontal pulling exercise for the middle back.",
+            how:[
+                "Sit upright and brace your torso.",
+                "Hold the handle.",
+                "Pull toward your torso.",
+                "Keep shoulders controlled.",
+                "Return slowly."
+            ],
+            tips:[
+                "Keep your spine neutral.",
+                "Avoid jerking.",
+                "Control the return.",
+                "Use manageable resistance."
+            ],
+            mistakes:[
+                "Rounding the back.",
+                "Swinging.",
+                "Excessive weight.",
+                "Shrugging."
+            ],
+            safety:"Keep the movement controlled."
+        },
+
+        {
+            name:"Face Pull",
+            target:"REAR DELTS + UPPER BACK",
+            sets:"3 sets",
+            reps:"12–15 reps",
+            rest:"60 sec",
+            description:"A cable exercise commonly used to train the rear shoulders and upper back.",
+            how:[
+                "Set the cable around face height.",
+                "Hold the rope with both hands.",
+                "Pull toward your face.",
+                "Allow the hands to separate naturally.",
+                "Return slowly."
+            ],
+            tips:[
+                "Use light to moderate resistance.",
+                "Keep shoulders controlled.",
+                "Avoid excessive body movement.",
+                "Focus on quality."
+            ],
+            mistakes:[
+                "Using too much weight.",
+                "Jerking the cable.",
+                "Leaning backward.",
+                "Shrugging excessively."
+            ],
+            safety:"Keep the movement comfortable for the shoulders."
+        }
+
+    ]
+},
+
+
+Saturday:{
+    title:"Arms + Legs",
+    exercises:[
+
+        {
+            name:"Dumbbell Biceps Curl",
+            target:"BICEPS",
+            sets:"3 sets",
+            reps:"10–12 reps",
+            rest:"60 sec",
+            description:"A basic biceps isolation movement.",
+            how:[
+                "Stand with dumbbells at your sides.",
+                "Keep elbows close to your torso.",
+                "Curl one or both dumbbells upward.",
+                "Pause briefly.",
+                "Lower slowly."
+            ],
+            tips:[
+                "Keep torso stable.",
+                "Control the lowering phase.",
+                "Use moderate weight.",
+                "Keep wrists neutral."
+            ],
+            mistakes:[
+                "Swinging.",
+                "Excessive weight.",
+                "Moving elbows.",
+                "Dropping the weights."
+            ],
+            safety:"Choose a load you can control."
+        },
+
+        {
+            name:"Triceps Pushdown",
+            target:"TRICEPS",
+            sets:"3 sets",
+            reps:"10–12 reps",
+            rest:"60 sec",
+            description:"Cable isolation movement for the triceps.",
+            how:[
+                "Stand at the cable station.",
+                "Grip the attachment.",
+                "Keep elbows near your sides.",
+                "Push downward.",
+                "Return slowly."
+            ],
+            tips:[
+                "Keep elbows controlled.",
+                "Avoid swinging.",
+                "Use full comfortable range.",
+                "Control the return."
+            ],
+            mistakes:[
+                "Moving elbows.",
+                "Using momentum.",
+                "Too much weight.",
+                "Leaning excessively."
+            ],
+            safety:"Use manageable resistance."
+        },
+
+        {
+            name:"Goblet Squat",
+            target:"LEGS + GLUTES",
+            sets:"3 sets",
+            reps:"10–12 reps",
+            rest:"75 sec",
+            description:"A beginner-friendly squat variation using a dumbbell or kettlebell.",
+            how:[
+                "Hold the weight close to your chest.",
+                "Stand with a comfortable stance.",
+                "Brace your core.",
+                "Squat down under control.",
+                "Stand while keeping the weight stable."
+            ],
+            tips:[
+                "Keep the weight close.",
+                "Keep feet stable.",
+                "Use comfortable depth.",
+                "Control the descent."
+            ],
+            mistakes:[
+                "Rounding excessively.",
+                "Knees collapsing inward.",
+                "Using too much weight.",
+                "Rushing."
+            ],
+            safety:"Start light and learn the movement first."
+        },
+
+        {
+            name:"Romanian Deadlift",
+            target:"HAMSTRINGS + GLUTES",
+            sets:"3 sets",
+            reps:"8–10 reps",
+            rest:"90 sec",
+            description:"A hip-hinge movement emphasizing the hamstrings and glutes.",
+            how:[
+                "Stand tall holding the weight.",
+                "Keep a soft bend in your knees.",
+                "Push your hips backward.",
+                "Lower the weight while maintaining a controlled spine.",
+                "Drive your hips forward to return."
+            ],
+            tips:[
+                "Think hip hinge, not squat.",
+                "Keep weight close to your legs.",
+                "Move slowly.",
+                "Start with light weight."
+            ],
+            mistakes:[
+                "Rounding the back.",
+                "Squatting too much.",
+                "Moving too quickly.",
+                "Using excessive weight."
+            ],
+            safety:"This movement is technique-sensitive; get coaching if you are new to it."
+        },
+
+        {
+            name:"Calf Raise",
+            target:"CALVES",
+            sets:"4 sets",
+            reps:"12–15 reps",
+            rest:"60 sec",
+            description:"A simple movement targeting the calf muscles.",
+            how:[
+                "Stand securely.",
+                "Rise onto your toes.",
+                "Pause briefly at the top.",
+                "Lower slowly.",
+                "Repeat."
+            ],
+            tips:[
+                "Use full comfortable range.",
+                "Avoid bouncing.",
+                "Keep balance.",
+                "Control every repetition."
+            ],
+            mistakes:[
+                "Bouncing.",
+                "Moving too quickly.",
+                "Using excessive load.",
+                "Poor balance."
+            ],
+            safety:"Hold a stable support if needed."
+        }
+
+    ]
+},
+
+
+Sunday:{
+    title:"Recovery Day",
+    exercises:[
+
+        {
+            name:"Light Walking",
+            target:"RECOVERY",
+            sets:"1",
+            reps:"20–30 min",
+            rest:"—",
+            description:"Easy movement to keep you active while allowing recovery.",
+            how:[
+                "Walk at a comfortable pace.",
+                "Keep breathing relaxed.",
+                "Stay hydrated.",
+                "Stop if you feel unwell."
+            ],
+            tips:[
+                "Keep intensity easy.",
+                "Wear comfortable shoes.",
+                "Use it as active recovery."
+            ],
+            mistakes:[
+                "Turning recovery into a hard workout.",
+                "Ignoring pain."
+            ],
+            safety:"Keep the intensity comfortable."
+        },
+
+        {
+            name:"Full Body Stretch",
+            target:"MOBILITY",
+            sets:"1",
+            reps:"10–15 min",
+            rest:"—",
+            description:"Gentle stretching session for recovery and mobility.",
+            how:[
+                "Choose comfortable stretches.",
+                "Move slowly into each position.",
+                "Breathe normally.",
+                "Hold without forcing."
+            ],
+            tips:[
+                "Stay relaxed.",
+                "Avoid bouncing.",
+                "Never force painful positions."
+            ],
+            mistakes:[
+                "Stretching aggressively.",
+                "Holding your breath.",
+                "Forcing painful ranges."
+            ],
+            safety:"Stretching should not cause sharp pain."
+        },
+
+        {
+            name:"Easy Mobility",
+            target:"MOBILITY",
+            sets:"1",
+            reps:"10 min",
+            rest:"—",
+            description:"Gentle mobility movements for your joints and body.",
+            how:[
+                "Move through comfortable ranges.",
+                "Keep movements slow.",
+                "Focus on control.",
+                "Breathe normally."
+            ],
+            tips:[
+                "Keep movements pain-free.",
+                "Don't force range.",
+                "Stay relaxed."
+            ],
+            mistakes:[
+                "Forcing joints.",
+                "Moving too quickly.",
+                "Ignoring pain."
+            ],
+            safety:"Stop any movement that causes sharp pain."
+        },
+
+        {
+            name:"Deep Breathing",
+            target:"RECOVERY",
+            sets:"1",
+            reps:"5 min",
+            rest:"—",
+            description:"Relaxed breathing to help you wind down after training.",
+            how:[
+                "Sit comfortably.",
+                "Relax your shoulders.",
+                "Breathe slowly and comfortably.",
+                "Continue for several minutes."
+            ],
+            tips:[
+                "Don't force deep breaths.",
+                "Keep breathing comfortable.",
+                "Relax your body."
+            ],
+            mistakes:[
+                "Holding your breath.",
+                "Forcing uncomfortable breaths."
+            ],
+            safety:"Return to normal breathing if you feel dizzy."
+        },
+
+        {
+            name:"Complete Rest",
+            target:"RECOVERY",
+            sets:"—",
+            reps:"Rest",
+            rest:"—",
+            description:"A complete recovery period with no structured training.",
+            how:[
+                "Relax.",
+                "Eat properly.",
+                "Stay hydrated.",
+                "Get adequate sleep."
+            ],
+            tips:[
+                "Prioritize recovery.",
+                "Keep normal daily movement.",
+                "Prepare for the next training week."
+            ],
+            mistakes:[
+                "Feeling guilty about resting.",
+                "Replacing rest with unnecessary intense training."
+            ],
+            safety:"Recovery is a normal part of a training plan."
+        }
+
+    ]
+}
+
+};
+
+
+/* =====================================================
+   STATE
+===================================================== */
+
+let selectedDay = "Monday";
+
+let completed =
+    JSON.parse(localStorage.getItem("forgeGuideCompleted")) || {};
+
+let water =
+    Number(localStorage.getItem("forgeGuideWater")) || 0;
+
+let selectedExercise = 0;
+
+
+/* =====================================================
+   RENDER WORKOUT
+===================================================== */
+
+function renderWorkout(){
+
+    const data = workouts[selectedDay];
+
+    document.getElementById("workoutTitle").innerText =
+        data.title;
+
+    document.getElementById("workoutSubtitle").innerText =
+        selectedDay + " • " +
+        data.exercises.length +
+        " exercises";
+
+    let html = "";
+
+    data.exercises.forEach((exercise,index)=>{
+
+        const key =
+            selectedDay + "-" + index;
+
+        const done =
+            completed[key] === true;
+
+        html += `
+
+        <div class="exercise ${done ? "done" : ""}">
+
+            <div class="exercise-number">
+                ${String(index+1).padStart(2,"0")}
+            </div>
+
+            <div>
+
+                <div class="exercise-name">
+                    ${exercise.name}
+                </div>
+
+                <div class="exercise-target">
+                    🎯 ${exercise.target}
+                </div>
+
+                <div class="exercise-meta">
+                    <span>${exercise.sets}</span>
+                    <span>${exercise.reps}</span>
+                    <span>REST ${exercise.rest}</span>
+                </div>
+
+            </div>
+
+            <div style="display:flex;gap:6px;align-items:center">
+
+                <button
+                    class="view-btn"
+                    onclick="showGuide(${index})">
+
+                    GUIDE
+
+                </button>
+
+                <button
+                    class="check-btn ${done ? "done" : ""}"
+                    onclick="toggleExercise(${index})">
+
+                    ✓
+
+                </button>
+
+            </div>
+
+        </div>
+
+        `;
+    });
+
+    document.getElementById("exerciseList").innerHTML =
+        html;
+
+    updateDayProgress();
+
+}
+
+
+/* =====================================================
+   SELECT DAY
+===================================================== */
+
+function selectDay(day,element){
+
+    selectedDay = day;
+
+    document
+        .querySelectorAll(".day")
+        .forEach(dayBtn=>{
+            dayBtn.classList.remove("active");
+        });
+
+    element.classList.add("active");
+
+    renderWorkout();
+
+    showGuide(0);
+
+}
+
+
+/* =====================================================
+   SHOW GUIDE
+===================================================== */
+
+function showGuide(index){
+
+    selectedExercise = index;
+
+    const exercise =
+        workouts[selectedDay].exercises[index];
+
+    document.getElementById("guideTitle")
+        .innerText = exercise.name;
+
+    document.getElementById("guideTarget")
+        .innerText = exercise.target;
+
+    document.getElementById("guideDescription")
+        .innerText = exercise.description;
+
+    document.getElementById("howTo").innerHTML =
+        exercise.how
+        .map(item=>`<li>${item}</li>`)
+        .join("");
+
+    document.getElementById("formTips").innerHTML =
+        exercise.tips
+        .map(item=>`<li>${item}</li>`)
+        .join("");
+
+    document.getElementById("mistakes").innerHTML =
+        exercise.mistakes
+        .map(item=>`<li>${item}</li>`)
+        .join("");
+
+    document.getElementById("guide")
+        .scrollIntoView({
+            behavior:"smooth",
+            block:"start"
+        });
+
+}
+
+
+/* =====================================================
+   MODAL GUIDE
+===================================================== */
+
+function openModal(index){
+
+    const exercise =
+        workouts[selectedDay].exercises[index];
+
+    document.getElementById("modalTitle")
+        .innerText = exercise.name;
+
+    document.getElementById("modalTarget")
+        .innerText = exercise.target;
+
+    document.getElementById("modalHow").innerHTML =
+        exercise.how
+        .map(item=>`<li>${item}</li>`)
+        .join("");
+
+    document.getElementById("modalSafety")
+        .innerText = exercise.safety;
+
+    document.getElementById("modal")
+        .classList.add("show");
+
+}
+
+function closeModal(){
+
+    document.getElementById("modal")
+        .classList.remove("show");
+
+}
+
+
+/* =====================================================
+   COMPLETE EXERCISE
+===================================================== */
+
+function toggleExercise(index){
+
+    const key =
+        selectedDay + "-" + index;
+
+    completed[key] =
+        !completed[key];
+
+    localStorage.setItem(
+        "forgeGuideCompleted",
+        JSON.stringify(completed)
+    );
+
+    renderWorkout();
+    updateStats();
+
+}
+
+
+/* =====================================================
+   DAY PROGRESS
+===================================================== */
+
+function updateDayProgress(){
+
+    const data =
+        workouts[selectedDay];
+
+    let done = 0;
+
+    data.exercises.forEach((_,index)=>{
+
+        if(completed[selectedDay+"-"+index]){
+            done++;
+        }
+
+    });
+
+    const percent =
+        Math.round(
+            (done/data.exercises.length)*100
+        );
+
+    document.getElementById("dayDone")
+        .innerText = done;
+
+    document.getElementById("progressFill")
+        .style.width = percent+"%";
+
+}
+
+
+/* =====================================================
+   OVERALL STATS
+===================================================== */
+
+function updateStats(){
+
+    let total = 0;
+    let done = 0;
+
+    Object.keys(workouts).forEach(day=>{
+
+        workouts[day].exercises
+        .forEach((_,index)=>{
+
+            total++;
+
+            if(completed[day+"-"+index]){
+                done++;
+            }
+
+        });
+
+    });
+
+    const percent =
+        Math.round((done/total)*100);
+
+    document.getElementById("completedCount")
+        .innerText = done;
+
+    document.getElementById("overallProgress")
+        .innerText = percent+"%";
+
+}
+
+
+/* =====================================================
+   WATER
+===================================================== */
+
+function renderWater(){
+
+    let html = "";
+
+    for(let i=1;i<=8;i++){
+
+        html += `
+
+        <div
+            class="glass ${i<=water ? "full":""}"
+            onclick="setWater(${i})">
+        </div>
+
+        `;
+
+    }
+
+    document.getElementById("water")
+        .innerHTML = html;
+
+    document.getElementById("waterCount")
+        .innerText = water;
+
+}
+
+function setWater(value){
+
+    water = value;
+
+    localStorage.setItem(
+        "forgeGuideWater",
+        water
+    );
+
+    renderWater();
+
+}
+
+
+/* =====================================================
+   TIMER
+===================================================== */
+
+let timerSeconds = 90;
+let timerInterval = null;
+
+function updateTimer(){
+
+    const min =
+        String(
+            Math.floor(timerSeconds/60)
+        ).padStart(2,"0");
+
+    const sec =
+        String(timerSeconds%60)
+        .padStart(2,"0");
+
+    document.getElementById("timer")
+        .innerText = min+":"+sec;
+
+}
+
+function startTimer(){
+
+    if(timerInterval) return;
+
+    timerInterval = setInterval(()=>{
+
+        if(timerSeconds > 0){
+
+            timerSeconds--;
+
+            updateTimer();
+
+        }else{
+
+            clearInterval(timerInterval);
+
+            timerInterval = null;
+
+            document.getElementById("timer")
+                .innerText = "DONE";
+
+        }
+
+    },1000);
+
+}
+
+function pauseTimer(){
+
+    clearInterval(timerInterval);
+
+    timerInterval = null;
+
+}
+
+function resetTimer(){
+
+    clearInterval(timerInterval);
+
+    timerInterval = null;
+
+    timerSeconds = 90;
+
+    updateTimer();
+
+}
+
+function setTimer(seconds){
+
+    clearInterval(timerInterval);
+
+    timerInterval = null;
+
+    timerSeconds = seconds;
+
+    updateTimer();
+
+}
+
+
+/* =====================================================
+   RESET
+===================================================== */
+
+function resetProgress(){
+
+    if(!confirm(
+        "Reset all workout progress?"
+    )){
+        return;
+    }
+
+    completed = {};
+
+    localStorage.removeItem(
+        "forgeGuideCompleted"
+    );
+
+    updateStats();
+
+    renderWorkout();
+
+}
+
+
+/* =====================================================
+   SCROLL
+===================================================== */
+
+function goWorkout(){
+
+    document
+        .getElementById("workoutSection")
+        .scrollIntoView({
+            behavior:"smooth"
+        });
+
+}
+
+
+/* =====================================================
+   STREAK DISPLAY
+===================================================== */
+
+function updateStreak(){
+
+    const count =
+        Number(
+            localStorage.getItem("forgeStreak")
+        ) || 0;
+
+    document.getElementById("streak")
+        .innerText = count;
+
+}
+
+
+/* =====================================================
+   INITIALIZE
+===================================================== */
+
+renderWorkout();
+updateStats();
+renderWater();
+updateTimer();
+updateStreak();
+
+showGuide(0);
+
+
+/* Close modal when clicking outside */
+
+document.getElementById("modal")
+.addEventListener("click",function(e){
+
+    if(e.target === this){
+        closeModal();
+    }
+
+});
+
+</script>
+
+</body>
+</html>
+```
